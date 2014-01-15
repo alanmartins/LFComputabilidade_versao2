@@ -62,7 +62,7 @@ public class ExpressaoRegular {
 		extrairAlfabeto();
 		nulo.add(null);
 		exprRegular = exprRegular.trim(); // Eliminação de todos os espaços em branco
-		automato = ER_to_AFN(exprRegular); 
+		automato = ER_to_AFN(exprRegular); // Cria o AFN
 		afd = AFNtoAFD(automato);
 		Saida();
 	}
