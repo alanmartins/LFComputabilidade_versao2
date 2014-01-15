@@ -62,7 +62,7 @@ public class ExpressaoRegular {
 		extrairAlfabeto();
 		nulo.add(null);
 		exprRegular = exprRegular.trim(); // Eliminação de todos os espaços em branco
-		automato = ER_to_AFN(exprRegular.trim());
+		automato = ER_to_AFN(exprRegular); 
 		afd = AFNtoAFD(automato);
 		Saida();
 	}
@@ -241,9 +241,11 @@ public class ExpressaoRegular {
 
 	public boolean reconheceLinguagem(AFD afd, String cadeia){
 		estadoAtual = afd.getInicial();
-		for(int i=0; i<cadeia.length(); i++){
-			if(!afd.funcaoTransicaoAFD(estadoAtual, cadeia.charAt(i)).equals(null)){
-				estadoAtual = afd.funcaoTransicaoAFD(estadoAtual, cadeia.charAt(i));
+		if(!afd.getTransicoes().isEmpty()){
+			for(int i=0; i<cadeia.length(); i++){
+				if(!afd.funcaoTransicaoAFD(estadoAtual, cadeia.charAt(i)).equals(null)){
+					estadoAtual = afd.funcaoTransicaoAFD(estadoAtual, cadeia.charAt(i));
+				}
 			}
 		}
 		if(estadoAtual.getTipo() == 1){
@@ -597,7 +599,7 @@ public class ExpressaoRegular {
 
 	public static void main(String[] args) throws InterruptedException {
 		arqEntrada = args[0]; // arquivo de entrada
-		arqSaida = args[1];
+		arqSaida = args[1]; // arquivo de saída
 		new ExpressaoRegular();
 	}
 
