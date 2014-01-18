@@ -56,17 +56,6 @@ public class ExpressaoRegular {
 	public TransicaoAFD transicaoAFD;
 	public int t; // contador
 
-	
-	public ExpressaoRegular() throws InterruptedException {
-		Entrada();
-		extrairAlfabeto();
-		nulo.add(null);
-		exprRegular = exprRegular.trim(); // Eliminação de todos os espaços em branco
-		automato = ER_to_AFN(exprRegular); // Cria o AFN
-		afd = AFNtoAFD(automato);
-		Saida();
-	}
-	
 	public LinkedList<AFN> listaOperandos = new LinkedList<AFN>();
 	public LinkedList<Character> listaOperadores = new LinkedList<Character>();
 	public LinkedList<AFN> listaOperands = new LinkedList<AFN>();
@@ -78,7 +67,16 @@ public class ExpressaoRegular {
 	public Character ch;
 	
 	
-	
+	public ExpressaoRegular() throws InterruptedException {
+		Entrada();
+		extrairAlfabeto();
+		nulo.add(null);
+		exprRegular = exprRegular.trim(); // Eliminação de todos os espaços em branco
+		automato = ER_to_AFN(exprRegular); // Cria o AFN
+		afd = AFNtoAFD(automato);
+		Saida();
+	}
+
 	public AFN solverSimples(String er) throws InterruptedException{
 
 		listaOperandos.clear();
@@ -144,21 +142,13 @@ public class ExpressaoRegular {
 			listaOperandos.removeAll(nulo);
 			listaOperadores.removeAll(uniao);
 		}
-
-		
+	
 		return listaOperandos.removeFirst();
 	}
 		
 	
-	
-
-	
-	
-	// 0.(0+1)*.1.(0+1)*  // 0.1*0+1.1*
-	
+	// 0.(0+1)*.1.(0+1)*  // 0.1*0+1.1*	
 	public AFN ER_to_AFN(String er) throws InterruptedException {
-		
-		
 		String temp = "";
 		// Faz o reconhecimento primário da expressão regular
 		for(int i=0; i< er.length(); i++){
@@ -243,10 +233,13 @@ public class ExpressaoRegular {
 		estadoAtual = afd.getInicial();
 		if(!afd.getTransicoes().isEmpty()){
 			for(int i=0; i<cadeia.length(); i++){
+				if(!alfabeto.contains(cadeia.charAt(i))) return false;
 				if(!afd.funcaoTransicaoAFD(estadoAtual, cadeia.charAt(i)).equals(null)){
 					estadoAtual = afd.funcaoTransicaoAFD(estadoAtual, cadeia.charAt(i));
 				}
 			}
+		}else{
+			return false;
 		}
 		if(estadoAtual.getTipo() == 1){
 			return true;
@@ -416,31 +409,7 @@ public class ExpressaoRegular {
 		return false;
 	}
 
-
-
-	public boolean Precedencia(Character op1, Character op2) {
-		if (  (op1 == '.' && op2 == '*') | (op1 == '+' && op2 == '*')
-			| (op1 == '+' && op2 == '.') | (op1 == '(' && op2 == '*')
-			| (op1 == '(' && op2 == '.') | (op1 == '(' && op2 == '+')
-			| (op1 == op2)) 
-		{
-			return true;
-		} else {
-			return false;
-		}
-
-	}
-
-	public boolean validaER(String er) {
-		boolean valida = true;
-		if (er.length() == 0 | er.charAt(0) == '+' | er.charAt(0) == '*' | er.charAt(0) == '.') {
-			System.err.print("Essa não é uma Expressão Regular.");
-			valida = false;
-		}
-		return valida;
-	}
-
-	// Cria um autômato para a palavra vazia
+	// Cria um autômato para a cadeia vazia
 	public AFN E() {
 		AFN aux = new AFN();
 		a = new Estado(1);
@@ -449,7 +418,7 @@ public class ExpressaoRegular {
 		return aux;
 	}
 
-	// Cria um autômato para a palavra vazia
+	// Cria um autômato para a linguagem vazia
 	public AFN V() {
 		AFN aux = new AFN();
 		a = new Estado(0);
