@@ -1,0 +1,45 @@
+------------------------------------------
+Instruções de compilação e execução
+------------------------------------------
+Professor, o Passo 1 é desnecessário? Incluí apenas para complementar as instruções do projeto.
+O Passo 2 inclui o procedimento executado pelo script de compilação e o formato do caminho 
+dos arquivos de entrada e de saída necessários para execução o projeto.
+
+[Passo 1] Configuração das variáveis de ambiente
+
+- Teclas de atalho Win+PauseBreak;
+- Configurações avançadas do sistemas;
+- Variáveis de ambiente;
+
+Na parte de variáveis de usuário, adicionar as seguintes variáveis de ambiente:
+
+-------------------------------------------------------------
+Nome da variável |             Valor da variável
+-------------------------------------------------------------
+   CLASSPATH     | C:\Program Files\Java\jdk1.7.0_25\lib;,;
+-------------------------------------------------------------
+   JAVA_HOME     | C:\Program Files\Java\jdk1.7.0_25
+-------------------------------------------------------------
+     PATH        | C:\Program Files\Java\jdk1.7.0_25\bin
+-------------------------------------------------------------
+
+- Reiniciar o sistema.
+
+OBSERVAÇÃO: A versão do JDK pode ser diferente, assim como a localização.
+
+
+
+[Passo 2] Instruções de execução do projeto
+
+Na pasta "src" do projeto baixado(\LFComputabilidade_Final\src) existe o arquivo "script.bat";
+Com a execução desse arquivo, o projeto primeiro será compilado e em seguida pedirá para serem
+informados os caminhos completos dos arquivos de entrada e de saida. O caminho deve conter o nome
+e extensão do arquivo também, por exemplo: 
+C:\Users\Usuario\Desktop\entrada.txt
+
+No projeto já estão inclusos arquivos de entrada e de saída.
+
+
+
+
+
